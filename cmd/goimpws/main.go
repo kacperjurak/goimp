@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"github.com/kacperjurak/goimp"
 	"github.com/kacperjurak/goimpcore"
 	"log"
 	"net/http"
@@ -31,7 +32,7 @@ type Request struct {
 
 type Result struct {
 	Index int `json:"-"`
-	goimpcore.Result
+	goimp.Result
 }
 
 type Response struct {
@@ -103,7 +104,9 @@ func solve(config Config, task Task, wg *sync.WaitGroup, c chan<- Result, index 
 	impData = impData[task.CutLow : len(impData)-int(task.CutHigh)]
 
 	log.Println(config.Code)
-	s := goimpcore.NewSolver(config.Code, task.InitValues, goimpcore.MODULUS)
+	var s goimp.Solver
+	s = goimpcore.NewSolver(config.Code, task.InitValues, goimpcore.MODULUS)
+
 	r, err := s.Solve(freqs, impData)
 	if err != nil {
 		panic(err)
