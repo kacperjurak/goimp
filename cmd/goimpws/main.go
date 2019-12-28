@@ -7,39 +7,10 @@ import (
 	"github.com/kacperjurak/goimpcore"
 	"log"
 	"net/http"
+	"runtime"
 	"sync"
 	"time"
 )
-
-type Task struct {
-	Freqs      []float64    `json:"freqs"`
-	ImpData    [][2]float64 `json:"impData"`
-	InitValues []float64    `json:"initValues"`
-	CutLow     uint         `json:"cutLow"`
-	CutHigh    uint         `json:"cutHigh"`
-}
-
-type Config struct {
-	Code    string `json:"code"`
-	CutLow  uint   `json:"cutLow"`
-	CutHigh uint   `json:"cutHigh"`
-}
-
-type Request struct {
-	Config
-	Tasks []Task `json:"tasks"`
-}
-
-type Result struct {
-	Index int `json:"-"`
-	goimp.Result
-}
-
-type Response struct {
-	Code    string   `json:"code"`
-	Runtime float64  `json:"runtime"`
-	Data    []Result `json:"data"`
-}
 
 var verbose bool
 
@@ -53,35 +24,40 @@ func main() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	var response Response
+	var response goimp.Response
 
 	switch r.Method {
 	case "POST":
 		d := json.NewDecoder(r.Body)
-		p := &Request{}
+		p := &goimp.Request{}
 		err := d.Decode(p)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
-		results := make(chan Result, len(p.Tasks))
+		taskLen := len(p.Tasks)
+		var resultsIndexed = make([]goimp.Result, taskLen)
+		c := make(chan goimp.ResultIndexed, taskLen)
 		var wg sync.WaitGroup
 
 		start := time.Now()
 
 		for i, t := range p.Tasks {
 			wg.Add(1)
-			go solve(p.Config, t, &wg, results, i)
+			go solve(p.Config, t, &wg, c, i)
 		}
 
 		wg.Wait()
-		close(results)
+		close(c)
 
 		response.Runtime = float64(time.Since(start) / 1000)
-
-		for result := range results {
-			response.Data = append(response.Data, result)
+		response.SpectrumsNo = taskLen
+		response.Code = p.Code
+		response.MaxProcs = runtime.GOMAXPROCS(0)
+		for result := range c {
+			resultsIndexed[result.Index] = result.Result
 		}
+		response.Data = resultsIndexed
 		j, _ := json.Marshal(response)
 
 		if _, err := w.Write(j); err != nil {
@@ -93,7 +69,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func solve(config Config, task Task, wg *sync.WaitGroup, c chan<- Result, index int) {
+func solve(config goimp.Config, task goimp.Task, wg *sync.WaitGroup, c chan<- goimp.ResultIndexed, index int) {
 	defer wg.Done()
 	var (
 		freqs   = task.Freqs
@@ -103,9 +79,7 @@ func solve(config Config, task Task, wg *sync.WaitGroup, c chan<- Result, index 
 	freqs = freqs[task.CutLow : len(freqs)-int(task.CutHigh)]
 	impData = impData[task.CutLow : len(impData)-int(task.CutHigh)]
 
-	log.Println(config.Code)
-	var s goimp.Solver
-	s = goimpcore.NewSolver(config.Code, task.InitValues, goimpcore.MODULUS)
+	var s goimp.Solver = goimpcore.NewSolver(config.Code, task.InitValues, goimpcore.MODULUS)
 
 	r, err := s.Solve(freqs, impData)
 	if err != nil {
@@ -116,7 +90,7 @@ func solve(config Config, task Task, wg *sync.WaitGroup, c chan<- Result, index 
 		log.Println(index, r)
 	}
 
-	c <- Result{
+	c <- goimp.ResultIndexed{
 		Index:  index,
 		Result: r,
 	}

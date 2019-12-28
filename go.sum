@@ -3,6 +3,7 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/ajstarks/svgo v0.0.0-20180226025133-644b8db467af/go.mod h1:K08gAheRH3/J6wwsYMMT4xOr94bZjxIelGM0+d/wbFw=
 github.com/ajstarks/svgo v0.0.0-20191124160048-bd5c74aaa11c/go.mod h1:K08gAheRH3/J6wwsYMMT4xOr94bZjxIelGM0+d/wbFw=
+github.com/aws/aws-lambda-go v1.13.3 h1:SuCy7H3NLyp+1Mrfp+m80jcbi9KYWAs9/BXwppwRDzY=
 github.com/aws/aws-lambda-go v1.13.3/go.mod h1:4UKl9IzQMoD+QF79YdCuzCwp8VbmG4VAQwij/eHl5CU=
 github.com/boombuler/barcode v1.0.0/go.mod h1:paBWMcWSl3LHKBqUq+rly7CNSldXjb2rDl3JlRe0mD8=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d/go.mod h1:maD7wRr/U5Z6m/iR4s+kqSMx2CaBsrgA7czyZG/E6dU=
@@ -17,6 +18,7 @@ github.com/jung-kurt/gofpdf v1.0.0/go.mod h1:7Id9E/uU8ce6rXgefFLlgrJj/GYY22cpxn+
 github.com/jung-kurt/gofpdf v1.0.3-0.20190309125859-24315acbbda5/go.mod h1:7Id9E/uU8ce6rXgefFLlgrJj/GYY22cpxn+r32jIOes=
 github.com/jung-kurt/gofpdf v1.16.2/go.mod h1:1hl7y57EsiPAkLbOwzpzqgx1A30nQCk/YmFV8S2vmK0=
 github.com/kacperjurak/goimp v0.0.0-20191227091137-1650cf99b2e1/go.mod h1:xGUAgIA6jnWUXd3Mf+uRX30xhVXvCQOCakVYV53ZLyo=
+github.com/kacperjurak/goimp v0.0.0-20191227100430-9af2d9b81466/go.mod h1:mxSEucTI3Wn1RRV1AHB00OdZGJnT9dDlAp+LOqOpB5E=
 github.com/kacperjurak/goimpcore v0.0.0-20191226185434-1ab0fde7ce02/go.mod h1:tCYtv3MTkx9EDV0eIjWKUJMhAbODjwVytq7L5nlSwug=
 github.com/kacperjurak/goimpcore v0.0.0-20191227091716-ebaab7477082 h1:Gqt/gOMUmxdmqajjj7J/Sb6Ha+5WPDlWCMOdqjLMwvs=
 github.com/kacperjurak/goimpcore v0.0.0-20191227091716-ebaab7477082/go.mod h1:jRlfPXpXJLiZmxv5RmhUqibiPH1mSwGVTFOmj+nqc1o=
@@ -24,6 +26,8 @@ github.com/kacperjurak/goimpcore v0.0.0-20191227092151-ea467379f3b8 h1:jcyb8vT4U
 github.com/kacperjurak/goimpcore v0.0.0-20191227092151-ea467379f3b8/go.mod h1:jRlfPXpXJLiZmxv5RmhUqibiPH1mSwGVTFOmj+nqc1o=
 github.com/kacperjurak/goimpcore v0.0.0-20191227093339-26bf5b8dfb2e h1:AxSipbRHvuMMqw2gaPvTYZ3FI8gIE/Kq9P+f0dj9lhg=
 github.com/kacperjurak/goimpcore v0.0.0-20191227093339-26bf5b8dfb2e/go.mod h1:jRlfPXpXJLiZmxv5RmhUqibiPH1mSwGVTFOmj+nqc1o=
+github.com/kacperjurak/goimpcore v0.0.0-20191227100526-7832e0992a4b h1:rVAMUhIHjZ3ly45P1Rs56LuYkcQ1JwaaJyXuXflJ9D0=
+github.com/kacperjurak/goimpcore v0.0.0-20191227100526-7832e0992a4b/go.mod h1:Nd3p1XPazeb4UdHZNLvBCIN3LrDxzyvtVtKXe70FvDc=
 github.com/kacperjurak/gologspace v0.0.0-20191213213242-f3d081d396d2/go.mod h1:TN7+G0YVdZH/wcJAhK2RJLFVNoHko2b5FjQijA+pbGc=
 github.com/lucasb-eyer/go-colorful v1.0.3/go.mod h1:R4dSotOR9KMtayYi1e77YzuveK+i7ruzyGqttikkLy0=
 github.com/maorshutman/lm v0.0.0-20190501150544-7c8d1397ebf3/go.mod h1:yDDTwtUPUoGH8NXn/97kSCbeV3M2BKHi7L1so+qSc/w=
