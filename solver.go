@@ -34,6 +34,7 @@ type Request struct {
 type Result struct {
 	Params  []float64   `json:"params"`
 	Min     float64     `json:"min"`
+	MinUnit string      `json:"minUnit"`
 	Payload interface{} `json:"payload"`
 	Runtime float64     `json:"runtime"`
 	Status  Status      `json:"status"`
