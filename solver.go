@@ -1,5 +1,12 @@
 package goimp
 
+const (
+	OK Status = iota
+	NOK
+)
+
+type Status int
+
 type Task struct {
 	Freqs      []float64    `json:"freqs"`
 	ImpData    [][2]float64 `json:"impData"`
@@ -25,12 +32,13 @@ type Request struct {
 }
 
 type Result struct {
-	Params          []float64 `json:"params"`
-	ChiSq           float64   `json:"chiSq"`
-	MajorIterations int       `json:"majorIterations"`
-	FuncEvaluations int       `json:"funcEvaluations"`
-	Runtime         float64   `json:"runtime"`
-	Status          string    `json:"status"`
+	Params  []float64   `json:"params"`
+	Min     float64     `json:"min"`
+	Payload interface{} `json:"payload"`
+	//MajorIterations int         `json:"majorIterations"`
+	//FuncEvaluations int         `json:"funcEvaluations"`
+	Runtime float64 `json:"runtime"`
+	Status  Status  `json:"status"`
 }
 
 type ResultIndexed struct {
