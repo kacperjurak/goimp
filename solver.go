@@ -35,10 +35,8 @@ type Result struct {
 	Params  []float64   `json:"params"`
 	Min     float64     `json:"min"`
 	Payload interface{} `json:"payload"`
-	//MajorIterations int         `json:"majorIterations"`
-	//FuncEvaluations int         `json:"funcEvaluations"`
-	Runtime float64 `json:"runtime"`
-	Status  Status  `json:"status"`
+	Runtime float64     `json:"runtime"`
+	Status  Status      `json:"status"`
 }
 
 type ResultIndexed struct {
