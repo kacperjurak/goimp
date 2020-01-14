@@ -57,7 +57,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		for result := range c {
 			resultsIndexed[result.Index] = result.Result
 		}
-		response.Data = resultsIndexed
+		response.Results = resultsIndexed
 		j, _ := json.Marshal(response)
 
 		if _, err := w.Write(j); err != nil {
@@ -79,7 +79,9 @@ func solve(config goimp.Config, task goimp.Task, wg *sync.WaitGroup, c chan<- go
 	freqs = freqs[task.CutLow : len(freqs)-int(task.CutHigh)]
 	impData = impData[task.CutLow : len(impData)-int(task.CutHigh)]
 
-	var s goimp.Solver = goimpcore.NewSolver(config.Code, task.InitValues, goimpcore.MODULUS)
+	s := goimpcore.NewSolver(config.Code)
+	s.InitValues = task.InitValues
+	s.SmartMode = "eis"
 
 	r, err := s.Solve(freqs, impData)
 	if err != nil {

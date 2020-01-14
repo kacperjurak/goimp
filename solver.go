@@ -50,7 +50,7 @@ type Response struct {
 	SpectrumsNo int      `json:"spectrumsNo"`
 	Runtime     float64  `json:"runtime"`
 	MaxProcs    int      `json:"maxProcs"`
-	Data        []Result `json:"data"`
+	Results     []Result `json:"results"`
 }
 
 type Solver interface {
