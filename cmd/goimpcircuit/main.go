@@ -37,6 +37,9 @@ var (
 	freqMax     float64
 	pointsNo    uint
 	quiet       bool
+	littleNoise bool
+	noisyPoints uint
+	noiseLevel  float64
 	res         [][2]float64
 )
 
@@ -57,13 +60,16 @@ func main() {
 	flag.Float64Var(&freqMax, "fmax", 1000000, "Max frequency")
 	flag.UintVar(&pointsNo, "fpn", 100, "Number of frequency points")
 	flag.BoolVar(&quiet, "q", false, "Quiet mode")
+	flag.BoolVar(&littleNoise, "n", false, "Add a little noise")
+	flag.UintVar(&noisyPoints, "np", 0, "Number of noisy points")
+	flag.Float64Var(&noiseLevel, "nl", 0.3, "Noise level (1 = 100%)")
 	flag.Parse()
 
 	if freqAuto {
 		freqs = gologspace.Generate(freqMin, freqMax, pointsNo)
 	}
 
-	res = goimpcore.CircuitImpedance(code, freqs, values)
+	res = goimpcore.CircuitImpedanceNoisy(code, freqs, values, noisyPoints, noiseLevel, littleNoise)
 
 	if !flip {
 		for i, v := range res {
