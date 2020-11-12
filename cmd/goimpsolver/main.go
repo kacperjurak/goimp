@@ -56,7 +56,8 @@ func main() {
 	freqs = freqs[cutLow : len(freqs)-int(cutHigh)]
 	impData = impData[cutLow : len(impData)-int(cutHigh)]
 
-	s := goimpcore.NewSolver(code, initValues, goimpcore.MODULUS)
+	s := goimpcore.NewSolver(code)
+	s.InitValues = initValues
 
 	res, err := s.Solve(freqs, impData)
 	if err != nil {
@@ -74,7 +75,7 @@ func main() {
 			panic(err)
 		}
 
-		p.Title.Text = "ChiSq: " + fmt.Sprintf("%e", res.ChiSq)
+		p.Title.Text = "ChiSq: " + fmt.Sprintf("%e", res.Min)
 		p.X.Label.Text = "Zr"
 		p.Y.Label.Text = "Zi"
 

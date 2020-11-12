@@ -8,49 +8,31 @@ const (
 type Status int
 
 type Task struct {
+	Code       string       `json:"code"`
 	Freqs      []float64    `json:"freqs"`
 	ImpData    [][2]float64 `json:"impData"`
 	InitValues []float64    `json:"initValues"`
-	CutLow     uint         `json:"cutLow"`
-	CutHigh    uint         `json:"cutHigh"`
-}
-
-type TaskIndexed struct {
-	Index int
-	Task  Task
-}
-
-type Config struct {
-	Code    string `json:"code"`
-	CutLow  uint   `json:"cutLow"`
-	CutHigh uint   `json:"cutHigh"`
 }
 
 type Request struct {
-	Config
-	Tasks []Task `json:"tasks"`
+	Index int  `json:"index"`
+	Task  Task `json:"task"`
 }
 
 type Result struct {
-	Params  []float64   `json:"params"`
-	Min     float64     `json:"min"`
-	MinUnit string      `json:"minUnit"`
-	Payload interface{} `json:"payload"`
-	Runtime float64     `json:"runtime"`
-	Status  Status      `json:"status"`
-}
-
-type ResultIndexed struct {
-	Index  int
-	Result Result
+	Code     string      `json:"code"`
+	Params   []float64   `json:"params"`
+	Min      float64     `json:"min"`
+	MinUnit  string      `json:"minUnit"`
+	Payload  interface{} `json:"payload"`
+	Runtime  float64     `json:"runtime"`
+	MaxProcs int         `json:"maxProcs"`
+	Status   Status      `json:"status"`
 }
 
 type Response struct {
-	Code        string   `json:"code"`
-	SpectrumsNo int      `json:"spectrumsNo"`
-	Runtime     float64  `json:"runtime"`
-	MaxProcs    int      `json:"maxProcs"`
-	Results     []Result `json:"results"`
+	Index  int    `json:"index"`
+	Result Result `json:"result"`
 }
 
 type Solver interface {
