@@ -20,8 +20,10 @@ cmd/goeiscircuit/goeiscircuit
 /clib/test
 /clib/clib.so
 /clib/clib.h
-/cmd/goimplambda/goimplambda.zip
-/cmd/goimplambda/goimplambda
+/lambda/goimplambda/goimplambda.zip
+/lambda/goimplambda/goimplambda
 /cmd/goimpcircuit/goimpcircuit
 /cmd/goimpsolver/goimpsolver
 /cmd/goimpws/goimpws
+/lambda/.aws-sam/
+/lambda/samconfig.toml

@@ -56,13 +56,10 @@ func main() {
 	freqs = freqs[cutLow : len(freqs)-int(cutHigh)]
 	impData = impData[cutLow : len(impData)-int(cutHigh)]
 
-	s := goimpcore.NewSolver(code)
+	s := goimpcore.NewSolver(code, freqs, impData)
 	s.InitValues = initValues
 
-	res, err := s.Solve(freqs, impData)
-	if err != nil {
-		panic(err)
-	}
+	res := s.Solve(10, 1000)
 
 	if imgOut || imgSave {
 		l, err := vg.ParseLength(strconv.Itoa(int(imgSize*imgDPI)) + "pt")

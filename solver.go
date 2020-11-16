@@ -20,14 +20,14 @@ type Request struct {
 }
 
 type Result struct {
-	Code     string      `json:"code"`
-	Params   []float64   `json:"params"`
-	Min      float64     `json:"min"`
-	MinUnit  string      `json:"minUnit"`
-	Payload  interface{} `json:"payload"`
-	Runtime  float64     `json:"runtime"`
-	MaxProcs int         `json:"maxProcs"`
-	Status   Status      `json:"status"`
+	Code       string      `json:"code"`
+	InitValues []float64   `json:"initValues"`
+	Params     []float64   `json:"params"`
+	Min        float64     `json:"min"`
+	MinUnit    string      `json:"minUnit"`
+	Payload    interface{} `json:"payload"`
+	Runtime    float64     `json:"runtime"`
+	Status     Status      `json:"status"`
 }
 
 type Response struct {

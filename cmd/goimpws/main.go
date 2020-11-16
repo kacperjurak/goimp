@@ -32,16 +32,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
-		//start := time.Now()
+		result := solve(p.Task)
 
-		result := solve(p.Task, p.Index)
-
-		//response.Result.Runtime = float64(time.Since(start) / 1000)
-		//response.Result.Code = p.Task.Code
-		//response.Result.MaxProcs = runtime.GOMAXPROCS(0)
 		response.Index = p.Index
 		response.Result = result
+		response.Result.InitValues = p.Task.InitValues
 		j, _ := json.Marshal(response)
+
+		if verbose {
+			log.Println(result)
+		}
 
 		if _, err := w.Write(j); err != nil {
 			panic(err)
@@ -52,24 +52,17 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func solve(task goimp.Task, index int) goimp.Result {
+func solve(task goimp.Task) goimp.Result {
 	var (
 		freqs   = task.Freqs
 		impData = task.ImpData
 	)
 
-	s := goimpcore.NewSolver(task.Code)
+	s := goimpcore.NewSolver(task.Code, freqs, impData)
 	s.InitValues = task.InitValues
 	s.SmartMode = "eis"
 
-	r, err := s.Solve(freqs, impData)
-	if err != nil {
-		panic(err)
-	}
+	result := s.Solve(10, 1000)
 
-	if verbose {
-		log.Println(index, r)
-	}
-
-	return r
+	return result
 }
